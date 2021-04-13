@@ -1,0 +1,16 @@
+out/
+logs/
+__pycache__/
+.idea/
+old-logs/
+eval/view_extrapolation
+eval/out
+eval/logs
+visualizer/novel_view_syn
+eval/deepvoxels
+eval/nerf_synthetic
+eval/ref
+eval/vis_ray_distribution
+tools/data_verify
+/eval/llff/
+/eval/llff_finetune/

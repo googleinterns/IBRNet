@@ -1,0 +1,3 @@
+[submodule "eval/lpips_tensorflow"]
+	path = eval/lpips_tensorflow
+	url = https://github.com/alexlee-gk/lpips-tensorflow

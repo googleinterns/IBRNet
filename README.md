@@ -25,7 +25,7 @@ conda activate ibrnet
 
 ## Datasets
 
-#### 1. Training datasets
+### 1. Training datasets
 ```
 ├──data/
     ├──ibrnet_collected_1/
@@ -38,7 +38,7 @@ conda activate ibrnet
 ```
 Please first `cd data/`, and then download datasets into `data/` following the instructions below. The organization of the datasets should be the same as above.
 
-##### (a) **Our captures**
+#### (a) **Our captures**
 We captured 67 forward-facing scenes (each scene contains 20-60 images). To download our data [ibrnet_collected.zip](https://drive.google.com/file/d/1rkzl3ecL3H0Xxf5WTyc2Swv30RIyr1R_/view?usp=sharing) (4.1G) for training, run:
 ```
 gdown https://drive.google.com/uc?id=1rkzl3ecL3H0Xxf5WTyc2Swv30RIyr1R_
@@ -46,7 +46,7 @@ unzip ibrnet_collected.zip
 ```
 
 P.S. We've captured some more scenes in [ibrnet_collected_more.zip](https://drive.google.com/file/d/1Uxw0neyiIn3Ve8mpRsO6A06KfbqNrWuq/view?usp=sharing), but we didn't include them for training. Feel free to download them if you would like more scenes for your task, but you wouldn't need them to reproduce our results.
-##### (b) [**LLFF**](https://bmild.github.io/llff/) released scenes
+#### (b) [**LLFF**](https://bmild.github.io/llff/) released scenes
 Download and process [real_iconic_noface.zip](https://drive.google.com/drive/folders/1M-_Fdn4ajDa0CS8-iqejv0fQQeuonpKF) (6.6G) using the following commands:
 ```angular2
 # download 
@@ -58,14 +58,14 @@ cd real_iconic_noface/
 rm -rf data2_fernvlsb data2_hugetrike data2_trexsanta data3_orchid data5_leafscene data5_lotr data5_redflower
 cd ../
 ``` 
-##### (c) [**Spaces Dataset**](https://github.com/augmentedperception/spaces_dataset)
+#### (c) [**Spaces Dataset**](https://github.com/augmentedperception/spaces_dataset)
 Download spaces dataset by:
 ```
 git clone https://github.com/augmentedperception/spaces_dataset
 ```
 
 
-##### (d) [**RealEstate10K**](https://google.github.io/realestate10k/)
+#### (d) [**RealEstate10K**](https://google.github.io/realestate10k/)
 The full RealEstate10K dataset is very large and can be difficult to download.
 Hence, we provide a subset of RealEstate10K training scenes containing only 200 scenes. In our experiment, we found using more scenes from RealEstate10K only provides marginal improvement. To download our [camera files](https://drive.google.com/file/d/1IgJIeCPPZ8UZ529rN8dw9ihNi1E9K0hL/view?usp=sharing) (2MB):
 
@@ -82,7 +82,7 @@ python generate_dataset.py train
 cd ../
 ```
 
-##### (e) [**Google Scanned Objects**](https://app.ignitionrobotics.org/GoogleResearch/fuel/collections/Google%20Scanned%20Objects)
+#### (e) [**Google Scanned Objects**](https://app.ignitionrobotics.org/GoogleResearch/fuel/collections/Google%20Scanned%20Objects)
 Google Scanned Objects contain 1032 diffuse objects with various shapes and appearances.
 We use [gaps](https://github.com/tomfunkhouser/gaps) to render these objects for training. Each object is rendered at 512 × 512 pixels
 from viewpoints on a quarter of the sphere. We render 250
@@ -92,7 +92,7 @@ gdown https://drive.google.com/uc?id=1w1Cs0yztH6kE3JIz7mdggvPGCwIKkVi2
 unzip google_scanned_objects_renderings.zip
 ```
 
-#### 2. Evaluation datasets
+### 2. Evaluation datasets
 ```
 ├──data/
     ├──deepvoxels/

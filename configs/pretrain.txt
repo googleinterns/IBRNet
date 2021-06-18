@@ -2,7 +2,7 @@
 expname = pretraining
 rootdir = /content/IBRNet/  # REPLACE THIS with YOUR PATH.
 render_stride = 2
-distributed = True
+distributed = False
 
 ## dataset
 # train_dataset = llff+spaces+ibrnet_collected+realestate+google_scanned

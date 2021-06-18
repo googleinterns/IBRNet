@@ -1,7 +1,7 @@
 ### INPUT
 expname = eval_llff
-rootdir = /home/qw246/S7/code/IBRNet/  # REPLACE THIS with YOUR PATH.
-ckpt_path = /home/qw246/S7/code/IBRNet/pretrained/model_255000.pth   # REPLACE THIS with YOUR PATH.
+rootdir = /content/IBRNet/  # REPLACE THIS with YOUR PATH.
+ckpt_path = /content/IBRNet/pretrained/model_255000.pth   # REPLACE THIS with YOUR PATH.
 distributed = False
 
 ## dataset

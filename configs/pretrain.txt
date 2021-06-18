@@ -1,12 +1,13 @@
 ### INPUT
 expname = pretraining
-rootdir = /home/qw246/S7/code/IBRNet/  # REPLACE THIS with YOUR PATH.
+rootdir = /content/IBRNet/  # REPLACE THIS with YOUR PATH.
 render_stride = 2
 distributed = True
 
 ## dataset
-train_dataset = llff+spaces+ibrnet_collected+realestate+google_scanned
-dataset_weights = [0.3, 0.15, 0.35, 0.15, 0.05]
+# train_dataset = llff+spaces+ibrnet_collected+realestate+google_scanned
+train_dataset = llff+spaces+ibrnet_collected+google_scanned
+dataset_weights = [0.35, 0.18, 0.40, 0.07]
 eval_dataset = llff_test
 eval_scenes = [trex, fern, flower, leaves, room, fortress, horns, orchids]
 
@@ -18,7 +19,7 @@ lrate_decay_factor = 0.5
 lrate_decay_steps = 50000
 
 ### TESTING
-chunk_size = 2000
+chunk_size = 4096
 
 ### RENDERING
 N_importance = 64

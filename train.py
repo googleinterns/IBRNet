@@ -19,6 +19,7 @@ import numpy as np
 import shutil
 import torch
 import torch.utils.data.distributed
+import torchvision.transforms as T
 
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
@@ -56,9 +57,11 @@ def synchronize():
 
 
 def train(args):
+    rand_erase = T.RandomErasing()
+    out_root = '/content/gdrive/MyDrive/colab/ibrnet'
 
     device = "cuda:{}".format(args.local_rank)
-    out_folder = os.path.join(args.rootdir, 'out', args.expname)
+    out_folder = os.path.join(out_root, 'out', args.expname)
     print('outputs will be saved to {}'.format(out_folder))
     os.makedirs(out_folder, exist_ok=True)
 
@@ -99,7 +102,8 @@ def train(args):
 
     # Create criterion
     criterion = Criterion()
-    tb_dir = os.path.join(args.rootdir, 'logs/', args.expname)
+    tb_dir = os.path.join(out_root, 'logs', args.expname)
+    os.makedirs(tb_dir, exist_ok=True)
     if args.local_rank == 0:
         writer = SummaryWriter(tb_dir)
         print('saving tensorboard files to {}'.format(tb_dir))
@@ -124,8 +128,9 @@ def train(args):
                                                   sample_mode=args.sample_mode,
                                                   center_ratio=args.center_ratio,
                                                   )
-
-            featmaps = model.feature_net(ray_batch['src_rgbs'].squeeze(0).permute(0, 3, 1, 2))
+            src_rgbs = ray_batch['src_rgbs'].squeeze(0).permute(0, 3, 1, 2)
+            src_rgbs = torch.stack([rand_erase(x) for x in src_rgbs])
+            featmaps = model.feature_net(src_rgbs)
 
             ret = render_rays(ray_batch=ray_batch,
                               model=model,
@@ -203,11 +208,17 @@ def train(args):
 
 def log_view_to_tb(writer, global_step, args, model, ray_sampler, projector, gt_img,
                    render_stride=1, prefix=''):
+
+    erase = T.RandomErasing(p=1.0)
+    
     model.switch_to_eval()
     with torch.no_grad():
         ray_batch = ray_sampler.get_all()
+        src_rgbs = ray_batch['src_rgbs'].squeeze(0).permute(0, 3, 1, 2)
+        src_rgbs = torch.stack([erase(x) for x in src_rgbs])
+
         if model.feature_net is not None:
-            featmaps = model.feature_net(ray_batch['src_rgbs'].squeeze(0).permute(0, 3, 1, 2))
+            featmaps = model.feature_net(src_rgbs)
         else:
             featmaps = [None, None]
         ret = render_single_image(ray_sampler=ray_sampler,
@@ -223,15 +234,13 @@ def log_view_to_tb(writer, global_step, args, model, ray_sampler, projector, gt_
                                   render_stride=render_stride,
                                   featmaps=featmaps)
 
-    average_im = ray_sampler.src_rgbs.cpu().mean(dim=(0, 1))
+    average_im = src_rgbs.mean(dim=0).cpu()
 
     if args.render_stride != 1:
         gt_img = gt_img[::render_stride, ::render_stride]
-        average_im = average_im[::render_stride, ::render_stride]
+        average_im = average_im[:, ::render_stride, ::render_stride]
 
     rgb_gt = img_HWC2CHW(gt_img)
-    average_im = img_HWC2CHW(average_im)
-
     rgb_pred = img_HWC2CHW(ret['outputs_coarse']['rgb'].detach().cpu())
 
     h_max = max(rgb_gt.shape[-2], rgb_pred.shape[-2], average_im.shape[-2])

@@ -131,9 +131,9 @@ We strongly recommend you to train the model with multiple GPUs:
 # this example uses 8 GPUs (nproc_per_node=8) 
 python -m torch.distributed.launch --nproc_per_node=8 train.py --config configs/pretrain.txt
 ```
-Alternatively, you can train with a single GPU using:
+Alternatively, you can train with a single GPU by setting `distributed=False` in `configs/pretrain.txt` and running:
 ```
-python train.py --config configs/pretrain.txt --distributed False
+python train.py --config configs/pretrain.txt
 ```
 
 ## Finetuning

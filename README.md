@@ -91,6 +91,7 @@ views for each object. To download [our renderings](https://drive.google.com/fil
 gdown https://drive.google.com/uc?id=1w1Cs0yztH6kE3JIz7mdggvPGCwIKkVi2
 unzip google_scanned_objects_renderings.zip
 ```
+The mapping between our renderings and the public Google Scanned Objects can be found in [this spreadsheet](https://docs.google.com/spreadsheets/d/14FivSzpjtqraR8IFmKOWWFXRUh4JsmTJqF2hr_ZY2R4/edit?usp=sharing&resourcekey=0-vVIKfNOVddY20NhBWr2ipQ).
 
 ### 2. Evaluation datasets
 ```

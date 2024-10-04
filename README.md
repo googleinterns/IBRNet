@@ -6,7 +6,7 @@ PyTorch implementation of paper "IBRNet: Learning Multi-View Image-Based Renderi
 > CVPR 2021
 > 
 
-#### [project page](https://ibrnet.github.io/) | [paper](http://arxiv.org/abs/2102.13090) | [data & model](https://drive.google.com/drive/folders/1qfcPffMy8-rmZjbapLAtdrKwg3AV-NJe?usp=sharing)
+#### [project page](https://ibrnet.github.io/) | [paper](http://arxiv.org/abs/2102.13090) | [data & model](https://drive.google.com/drive/folders/1I2MTWAJPCoseyaPOmRvpWkxIZq3c5lCu?usp=sharing)
 
 ![Demo](assets/ancient.gif)
 
@@ -39,18 +39,18 @@ conda activate ibrnet
 Please first `cd data/`, and then download datasets into `data/` following the instructions below. The organization of the datasets should be the same as above.
 
 #### (a) **Our captures**
-We captured 67 forward-facing scenes (each scene contains 20-60 images). To download our data [ibrnet_collected.zip](https://drive.google.com/file/d/1rkzl3ecL3H0Xxf5WTyc2Swv30RIyr1R_/view?usp=sharing) (4.1G) for training, run:
+We captured 67 forward-facing scenes (each scene contains 20-60 images). To download our data [ibrnet_collected.zip](https://drive.google.com/file/d/1dZZChihfSt9iIzcQICojLziPvX1vejkp/view?usp=sharing) (4.1G) for training, run:
 ```
-gdown https://drive.google.com/uc?id=1rkzl3ecL3H0Xxf5WTyc2Swv30RIyr1R_
+gdown https://drive.google.com/uc?id=1dZZChihfSt9iIzcQICojLziPvX1vejkp
 unzip ibrnet_collected.zip
 ```
 
-P.S. We've captured some more scenes in [ibrnet_collected_more.zip](https://drive.google.com/file/d/1Uxw0neyiIn3Ve8mpRsO6A06KfbqNrWuq/view?usp=sharing), but we didn't include them for training. Feel free to download them if you would like more scenes for your task, but you wouldn't need them to reproduce our results.
+P.S. We've captured some more scenes in [ibrnet_collected_more.zip](https://drive.google.com/file/d/1Xsi2170hvm1fpIaP6JI_d9oa0LGThJ7E/view?usp=sharing), but we didn't include them for training. Feel free to download them if you would like more scenes for your task, but you wouldn't need them to reproduce our results.
 #### (b) [**LLFF**](https://bmild.github.io/llff/) released scenes
-Download and process [real_iconic_noface.zip](https://drive.google.com/drive/folders/1M-_Fdn4ajDa0CS8-iqejv0fQQeuonpKF) (6.6G) using the following commands:
+Download and process [real_iconic_noface.zip](https://drive.google.com/file/d/1m6AaHg-NEH3VW3t0Zk9E9WcNp4ZPNopl/view?usp=sharing) (6.6G) using the following commands:
 ```angular2
 # download 
-gdown https://drive.google.com/uc?id=1ThgjloNt58ZdnEuiCeRf9tATJ-HI0b01
+gdown https://drive.google.com/uc?id=1m6AaHg-NEH3VW3t0Zk9E9WcNp4ZPNopl
 unzip real_iconic_noface.zip
 
 # [IMPORTANT] remove scenes that appear in the test set
@@ -86,12 +86,12 @@ cd ../
 Google Scanned Objects contain 1032 diffuse objects with various shapes and appearances.
 We use [gaps](https://github.com/tomfunkhouser/gaps) to render these objects for training. Each object is rendered at 512 × 512 pixels
 from viewpoints on a quarter of the sphere. We render 250
-views for each object. To download [our renderings](https://drive.google.com/file/d/1w1Cs0yztH6kE3JIz7mdggvPGCwIKkVi2/view?usp=sharing) (7.5GB), run:
+views for each object. To download [our renderings](https://drive.google.com/file/d/1tKHhH-L1viCvTuBO1xg--B_ioK7JUrrE/view?usp=sharing) (7.5GB), run:
 ```
-gdown https://drive.google.com/uc?id=1w1Cs0yztH6kE3JIz7mdggvPGCwIKkVi2
+gdown https://drive.google.com/uc?id=1tKHhH-L1viCvTuBO1xg--B_ioK7JUrrE
 unzip google_scanned_objects_renderings.zip
 ```
-The mapping between our renderings and the public Google Scanned Objects can be found in [this spreadsheet](https://docs.google.com/spreadsheets/d/14FivSzpjtqraR8IFmKOWWFXRUh4JsmTJqF2hr_ZY2R4/edit?usp=sharing&resourcekey=0-vVIKfNOVddY20NhBWr2ipQ).
+The mapping between our renderings and the public Google Scanned Objects can be found in [this spreadsheet](https://docs.google.com/spreadsheets/d/1JGqJ9vKgZf9gLLUM-KIiRr_ePzJ-2CYRs5daB0qNIPo/edit?usp=sharing&resourcekey=0-aZfNVJQSm9GEIzT1afvx8Q).
 
 ### 2. Evaluation datasets
 ```
@@ -108,7 +108,7 @@ bash download_eval_data.sh
 ## Evaluation
 First download our pretrained model under the project root directory:
 ```
-gdown https://drive.google.com/uc?id=165Et85R8YnL-5NcehG0fzqsnAUN8uxUJ
+gdown https://drive.google.com/uc?id=1wNkZkVQGx7rFksnX7uVX3NazrbjqaIgU
 unzip pretrained_model.zip
 ```
 
@@ -148,7 +148,7 @@ python -m torch.distributed.launch --nproc_per_node=2 train.py --config configs/
 - Our current implementation is not well-optimized in terms of the time efficiency at inference. Rendering a 1000x800 image can take from 30s to over a minute depending on specific GPU models. Please make sure to maximize the GPU memory utilization by increasing the size of the chunk to reduce inference time. You can also try to decrease the number of input source views (but subject to performance loss).  
 - If you want to create and train on your own datasets, you can implement your own Dataset class following our examples in `ibrnet/data_loaders/`. You can verify the camera poses using `data_verifier.py` in `ibrnet/data_loaders/`.
 - Since the evaluation datasets are either object-centric or forward-facing scenes, our provided view selection methods are very simple (based on either viewpoints or camera locations). If you want to evaluate our method on new scenes with other kinds of camera distributions, you might need to implement your own view selection methods to identify the most effective source views.
-- If you have any questions, you can contact qw246@cornell.edu.
+- If you have any questions, you can contact qwang423@gmail.com.
 ## Citation
 ```
 @inproceedings{wang2021ibrnet,
